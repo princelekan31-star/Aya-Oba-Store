@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AYA OBA | Admin Dashboard</title>
+    <style>
+        body { font-family: sans-serif; padding: 20px; background: #f0f2f5; color: #333; }
+        .panel { background: white; padding: 25px; border-radius: 15px; max-width: 450px; margin: auto; box-shadow: 0 10px 25px rgba(0,0,0,0.1); margin-bottom: 30px; }
+        h2 { text-align: center; color: #D4AF37; margin-bottom: 20px; text-transform: uppercase; letter-spacing: 2px; }
+        label { font-size: 12px; font-weight: bold; color: #666; display: block; margin-top: 15px; }
+        input, select { width: 100%; padding: 12px; margin: 8px 0; border: 2px solid #eee; border-radius: 10px; box-sizing: border-box; font-size: 16px; outline: none; }
+        input[type="file"] { border: 2px dashed #D4AF37; padding: 15px; background: #fffcf7; font-size: 14px; }
+        #upBtn { background: #1a1a1a; color: white; border: none; width: 100%; padding: 18px; border-radius: 10px; font-weight: bold; cursor: pointer; font-size: 16px; margin-top: 20px; }
+        #upBtn:disabled { background: #ccc; cursor: not-allowed; }
+        .inventory { max-width: 450px; margin: auto; }
+        .item-card { background: white; padding: 15px; border-radius: 10px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; border-left: 5px solid #D4AF37; }
+        .del-btn { background: #ff4d4d; color: white; border: none; padding: 8px 12px; border-radius: 8px; cursor: pointer; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+<div class="panel">
+    <h2>Post Product</h2>
+    <label>Product Name</label>
+    <input type="text" id="pName" placeholder="e.g., Luxury Perfume">
+    <label>Price (₦)</label>
+    <input type="number" id="pPrice" placeholder="e.g., 25000">
+    <label>Category</label>
+    <select id="pCat"><option>Perfume</option><option>Shoes</option><option>Bags</option></select>
+    <label>Select Photo from Gallery</label>
+    <input type="file" id="pImageFile" accept="image/*">
+    <button id="upBtn">PUBLISH TO STORE</button>
+</div>
+
+<div class="inventory">
+    <h3 style="text-align:center;">Manage Inventory</h3>
+    <div id="itemList">Loading products...</div>
+</div>
+
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { getFirestore, collection, addDoc, serverTimestamp, onSnapshot, query, orderBy, doc, deleteDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+    const firebaseConfig = {
+        apiKey: "AIzaSyCehs7OENqWla3LETVOak7--4VLtXKpypY",
+        authDomain: "aya-oba---collection.firebaseapp.com",
+        projectId: "aya-oba---collection",
+        storageBucket: "aya-oba---collection.appspot.com",
+        messagingSenderId: "291313623116",
+        appId: "1:291313623116:web:1d01255b7a4664deef54e9"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+    
+    const IMGBB_API_KEY = "6f77ef4e5e6a143f73b4ce7c035c1ad8";
+
+    document.getElementById('upBtn').onclick = async () => {
+        const btn = document.getElementById('upBtn');
+        const name = document.getElementById('pName').value;
+        const price = document.getElementById('pPrice').value;
+        const cat = document.getElementById('pCat').value;
+        const fileInput = document.getElementById('pImageFile');
+
+        if(!name || !price || !fileInput.files[0]) return alert("Please fill all fields and pick a photo!");
+
+        btn.disabled = true;
+        btn.innerText = "Uploading Image...";
+
+        try {
+            // 1. Upload to ImgBB
+            const formData = new FormData();
+            formData.append("image", fileInput.files[0]);
+
+            const imgResponse = await fetch(`https://api.imgbb.com/1/upload?key=${IMGBB_API_KEY}`, {
+                method: "POST",
+                body: formData
+            });
+            const imgData = await imgResponse.json();
+            
+            if(!imgData.success) throw new Error("Image upload failed");
+            const directUrl = imgData.data.url;
+
+            // 2. Save to Firestore
+            await addDoc(collection(db, "products"), {
+                name, price: Number(price), category: cat, image: directUrl, timestamp: serverTimestamp()
+            });
+
+            alert("Product Published Successfully!");
+            location.reload();
+        } catch (e) { 
+            alert("Error: " + e.message); 
+            btn.disabled = false; 
+            btn.innerText = "PUBLISH TO STORE"; 
+        }
+    };
+
+    onSnapshot(query(collection(db, "products"), orderBy("timestamp", "desc")), (snap) => {
+        const list = document.getElementById('itemList');
+        list.innerHTML = "";
+        snap.forEach(product => {
+            const data = product.data();
+            const id = product.id;
+            const div = document.createElement('div');
+            div.className = 'item-card';
+            div.innerHTML = `
+                <div><b>${data.name}</b><br><span>₦${data.price.toLocaleString()}</span></div>
+                <button class="del-btn" data-id="${id}">DELETE</button>
+            `;
+            list.appendChild(div);
+        });
+    });
+
+    document.addEventListener('click', async (e) => {
+        if(e.target.classList.contains('del-btn')){
+            const id = e.target.getAttribute('data-id');
+            if(confirm("Delete this item?")) {
+                await deleteDoc(doc(db, "products", id));
+                alert("Deleted!");
+            }
+        }
+    });
+</script>
+</body>
+</html>
+
