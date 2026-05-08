@@ -25,7 +25,7 @@
         .section-title { text-align: center; margin: 40px 0 20px; font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 700; }
         .section-title::after { content: ''; display: block; width: 30px; height: 2px; background: var(--gold); margin: 8px auto; }
         
-        /* Categories with Real Images */
+        /* Fixed Categories */
         .cat-grid { display: flex; gap: 20px; padding: 10px 20px; overflow-x: auto; scrollbar-width: none; }
         .cat-item { min-width: 85px; text-align: center; cursor: pointer; }
         .cat-circle { width: 75px; height: 75px; border-radius: 50%; background: #fff; margin: 0 auto 8px; border: 1px solid #eee; overflow: hidden; display: flex; align-items: center; justify-content: center; transition: 0.3s; }
@@ -40,7 +40,7 @@
         .badge { position: absolute; top: 10px; left: 10px; background: var(--dark); color: white; font-size: 8px; padding: 4px 8px; font-weight: 700; text-transform: uppercase; z-index: 5; border-radius: 2px; }
         .card img { width: 100%; height: 190px; object-fit: cover; background: #f9f9f9; border-radius: 5px; }
         .card-body { padding: 10px 0; }
-        .card-name { font-size: 12px; font-weight: 500; color: #444; height: 34px; overflow: hidden; }
+        .card-name { font-size: 12px; font-weight: 500; color: #444; height: 34px; overflow: hidden; line-height: 1.4; }
         .card-price { color: var(--dark); font-weight: 700; font-size: 14px; margin: 4px 0 10px; }
         .add-btn { background: var(--dark); color: white; border: none; width: 100%; padding: 12px; font-size: 10px; font-weight: 600; letter-spacing: 1px; cursor: pointer; border-radius: 3px; }
 
@@ -77,23 +77,23 @@
 <h3 class="section-title" id="cat-start">Shop By Category</h3>
 <div class="cat-grid" id="categoryTabs">
     <div class="cat-item active" data-cat="All">
-        <div class="cat-circle"><img src="https://img.icons8.com/ios-filled/100/c5a059/menu--v1.png" style="width:40%; height:40%; object-fit:contain;"></div>
+        <div class="cat-circle"><img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=200&q=80"></div>
         <p>All</p>
     </div>
     <div class="cat-item" data-cat="Perfume">
-        <div class="cat-circle"><img src="https://i.ibb.co/3ykGfX9/perfumes.jpg" alt="Perfumes"></div>
+        <div class="cat-circle"><img src="https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&w=200&q=80"></div>
         <p>Perfumes</p>
     </div>
     <div class="cat-item" data-cat="Bags">
-        <div class="cat-circle"><img src="https://i.ibb.co/6yYm6qL/bag.jpg" alt="Bags"></div>
+        <div class="cat-circle"><img src="https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=200&q=80"></div>
         <p>Bags</p>
     </div>
     <div class="cat-item" data-cat="Shoes">
-        <div class="cat-circle"><img src="https://i.ibb.co/L6V6f1N/shoes.jpg" alt="Shoes"></div>
+        <div class="cat-circle"><img src="https://images.unsplash.com/photo-1543163521-1bf539c55dd2?auto=format&fit=crop&w=200&q=80"></div>
         <p>Shoes</p>
     </div>
     <div class="cat-item" data-cat="Watches">
-        <div class="cat-circle"><img src="https://images.unsplash.com/photo-1524592094714-0f0654e20314?auto=format&fit=crop&w=200&q=80" alt="Watches"></div>
+        <div class="cat-circle"><img src="https://images.unsplash.com/photo-1524592094714-0f0654e20314?auto=format&fit=crop&w=200&q=80"></div>
         <p>Watches</p>
     </div>
 </div>
@@ -145,7 +145,7 @@
 
     function renderStore(products) {
         const store = document.getElementById('store');
-        if(products.length === 0) { store.innerHTML = "<p style='grid-column:1/3; text-align:center; padding:40px; opacity:0.5;'>Loading Products...</p>"; return; }
+        if(products.length === 0) { store.innerHTML = "<p style='grid-column:1/3; text-align:center; padding:40px; opacity:0.5;'>Updating Catalog...</p>"; return; }
         
         store.innerHTML = products.map(p => `
             <div class="card">
