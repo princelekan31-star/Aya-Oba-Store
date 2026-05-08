@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AYA OBA STORE | Official Launch</title>
+    <title>AYA OBA STORE | Official Collection</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
         :root { --gold: #c5a059; --dark: #111; --light-gray: #f9f9f9; --white: #ffffff; }
@@ -12,7 +12,7 @@
 
         .announcement { background: var(--dark); color: white; text-align: center; font-size: 10px; padding: 8px; letter-spacing: 1px; text-transform: uppercase; }
 
-        header { padding: 25px; text-align: center; background: white; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+        header { padding: 25px; text-align: center; background: white; position: sticky; top: 0; z-index: 100; border-bottom: 1px solid #f4f4f4; }
         header h1 { font-family: 'Playfair Display', serif; font-size: 26px; letter-spacing: 4px; }
         header p { font-size: 9px; color: var(--gold); letter-spacing: 3px; text-transform: uppercase; margin-top: -3px; }
 
@@ -20,37 +20,36 @@
         .hero-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.4); }
         .hero-content { position: relative; z-index: 1; padding: 20px; }
         .hero h2 { font-family: 'Playfair Display', serif; font-size: 38px; margin-bottom: 10px; line-height: 1.2; }
-        .hero p { font-size: 13px; margin-bottom: 20px; font-weight: 300; letter-spacing: 1px; }
         .hero button { background: var(--white); color: var(--dark); border: none; padding: 12px 35px; font-weight: 600; text-transform: uppercase; font-size: 11px; cursor: pointer; letter-spacing: 1px; }
 
         .section-title { text-align: center; margin: 40px 0 20px; font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 700; }
         .section-title::after { content: ''; display: block; width: 30px; height: 2px; background: var(--gold); margin: 8px auto; }
         
-        .cat-grid { display: flex; gap: 20px; padding: 10px 20px; overflow-x: auto; scrollbar-width: none; justify-content: flex-start; }
+        /* Categories with Real Images */
+        .cat-grid { display: flex; gap: 20px; padding: 10px 20px; overflow-x: auto; scrollbar-width: none; }
         .cat-item { min-width: 85px; text-align: center; cursor: pointer; }
-        .cat-circle { width: 70px; height: 70px; border-radius: 50%; background: #fff; margin: 0 auto 8px; border: 1px solid #eee; overflow: hidden; display: flex; align-items: center; justify-content: center; transition: 0.3s; box-shadow: 0 4px 10px rgba(0,0,0,0.03); }
-        .cat-circle img { width: 45px; height: 45px; object-fit: contain; }
+        .cat-circle { width: 75px; height: 75px; border-radius: 50%; background: #fff; margin: 0 auto 8px; border: 1px solid #eee; overflow: hidden; display: flex; align-items: center; justify-content: center; transition: 0.3s; }
+        .cat-circle img { width: 100%; height: 100%; object-fit: cover; }
         .cat-item p { font-size: 10px; font-weight: 600; text-transform: uppercase; color: #888; }
-        .cat-item.active .cat-circle { border: 2px solid var(--gold); background: #fffcf5; }
+        .cat-item.active .cat-circle { border: 2px solid var(--gold); transform: scale(1.05); }
         .cat-item.active p { color: var(--gold); }
 
+        /* Product Grid */
         .container { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; padding: 15px; }
         .card { background: var(--white); position: relative; }
-        .badge { position: absolute; top: 10px; left: 10px; background: var(--gold); color: white; font-size: 8px; padding: 4px 8px; font-weight: 700; text-transform: uppercase; z-index: 5; border-radius: 2px; }
+        .badge { position: absolute; top: 10px; left: 10px; background: var(--dark); color: white; font-size: 8px; padding: 4px 8px; font-weight: 700; text-transform: uppercase; z-index: 5; border-radius: 2px; }
         .card img { width: 100%; height: 190px; object-fit: cover; background: #f9f9f9; border-radius: 5px; }
         .card-body { padding: 10px 0; }
-        .card-name { font-size: 12px; font-weight: 500; color: #444; height: 34px; overflow: hidden; line-height: 1.4; }
+        .card-name { font-size: 12px; font-weight: 500; color: #444; height: 34px; overflow: hidden; }
         .card-price { color: var(--dark); font-weight: 700; font-size: 14px; margin: 4px 0 10px; }
         .add-btn { background: var(--dark); color: white; border: none; width: 100%; padding: 12px; font-size: 10px; font-weight: 600; letter-spacing: 1px; cursor: pointer; border-radius: 3px; }
 
-        .trust-banner { background: var(--light-gray); padding: 40px 20px; margin-top: 40px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
-        .trust-box { text-align: center; }
+        .trust-banner { background: var(--light-gray); padding: 40px 20px; margin-top: 40px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; text-align: center; }
         .trust-box h4 { font-size: 11px; text-transform: uppercase; margin-bottom: 4px; }
-        .trust-box p { font-size: 9px; color: #888; line-height: 1.3; }
+        .trust-box p { font-size: 9px; color: #888; }
 
         footer { background: var(--dark); color: white; padding: 50px 20px; text-align: center; }
         footer h4 { font-family: 'Playfair Display'; font-size: 20px; margin-bottom: 15px; }
-        footer p { font-size: 12px; opacity: 0.7; margin-bottom: 8px; }
         .footer-link { color: var(--gold); text-decoration: none; font-weight: 600; display: inline-block; margin-top: 15px; border: 1px solid var(--gold); padding: 10px 20px; font-size: 11px; }
 
         .cart-bar { position: fixed; bottom: 20px; left: 20px; right: 20px; background: white; padding: 15px; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; visibility: hidden; box-shadow: 0 10px 40px rgba(0,0,0,0.25); z-index: 1000; border: 1px solid #eee; }
@@ -59,7 +58,7 @@
 </head>
 <body>
 
-<div class="announcement">✨ Grand Launch: Monday, May 11th ✨</div>
+<div class="announcement">✨ Monday Launch: Free delivery over ₦100,000 ✨</div>
 
 <header>
     <h1>AYA OBA</h1>
@@ -78,23 +77,23 @@
 <h3 class="section-title" id="cat-start">Shop By Category</h3>
 <div class="cat-grid" id="categoryTabs">
     <div class="cat-item active" data-cat="All">
-        <div class="cat-circle"><img src="https://img.icons8.com/ios-filled/100/c5a059/menu--v1.png"></div>
+        <div class="cat-circle"><img src="https://img.icons8.com/ios-filled/100/c5a059/menu--v1.png" style="width:40%; height:40%; object-fit:contain;"></div>
         <p>All</p>
     </div>
     <div class="cat-item" data-cat="Perfume">
-        <div class="cat-circle"><img src="https://img.icons8.com/ios-filled/100/c5a059/perfume-bottle.png"></div>
+        <div class="cat-circle"><img src="https://i.ibb.co/3ykGfX9/perfumes.jpg" alt="Perfumes"></div>
         <p>Perfumes</p>
     </div>
     <div class="cat-item" data-cat="Bags">
-        <div class="cat-circle"><img src="https://img.icons8.com/ios-filled/100/c5a059/handbag.png"></div>
+        <div class="cat-circle"><img src="https://i.ibb.co/6yYm6qL/bag.jpg" alt="Bags"></div>
         <p>Bags</p>
     </div>
     <div class="cat-item" data-cat="Shoes">
-        <div class="cat-circle"><img src="https://img.icons8.com/ios-filled/100/c5a059/high-heels.png"></div>
+        <div class="cat-circle"><img src="https://i.ibb.co/L6V6f1N/shoes.jpg" alt="Shoes"></div>
         <p>Shoes</p>
     </div>
     <div class="cat-item" data-cat="Watches">
-        <div class="cat-circle"><img src="https://img.icons8.com/ios-filled/100/c5a059/watch.png"></div>
+        <div class="cat-circle"><img src="https://images.unsplash.com/photo-1524592094714-0f0654e20314?auto=format&fit=crop&w=200&q=80" alt="Watches"></div>
         <p>Watches</p>
     </div>
 </div>
@@ -112,13 +111,12 @@
 <footer>
     <h4>AYA OBA STORE</h4>
     <p>Lagos, Nigeria</p>
-    <p>Premium Perfumes, Bags, Shoes & More.</p>
-    <a href="https://wa.me/2348128663733" class="footer-link">CHAT WITH US ON WHATSAPP</a>
+    <a href="https://wa.me/2348128663733" class="footer-link">CHAT ON WHATSAPP</a>
     <p style="margin-top:40px; opacity:0.3; font-size:10px;">© 2026 Aya Oba. All Rights Reserved.</p>
 </footer>
 
 <div class="cart-bar" id="cartBar">
-    <div id="cartCount" style="font-weight:600; font-size:13px; color:var(--dark);">0 Items Selected</div>
+    <div id="cartCount" style="font-weight:600; font-size:13px;">0 Items Selected</div>
     <button class="checkout-btn" id="sendBtn">ORDER ON WHATSAPP</button>
 </div>
 
@@ -147,7 +145,7 @@
 
     function renderStore(products) {
         const store = document.getElementById('store');
-        if(products.length === 0) { store.innerHTML = "<p style='grid-column:1/3; text-align:center; padding:40px; opacity:0.5;'>Coming Soon...</p>"; return; }
+        if(products.length === 0) { store.innerHTML = "<p style='grid-column:1/3; text-align:center; padding:40px; opacity:0.5;'>Loading Products...</p>"; return; }
         
         store.innerHTML = products.map(p => `
             <div class="card">
@@ -180,7 +178,7 @@
         if(e.target.id === 'sendBtn') {
             let total = cart.reduce((sum, item) => sum + item.price, 0);
             let list = cart.map(item => `- ${item.name}`).join('%0A');
-            let msg = `Hello Aya Oba! 🛍️%0A%0AI would like to order the following:%0A${list}%0A%0A*Total: ₦${total.toLocaleString()}*%0A%0APlease let me know how to proceed with payment.`;
+            let msg = `Hello Aya Oba! 🛍️%0A%0AI want to order:%0A${list}%0A%0A*Total: ₦${total.toLocaleString()}*`;
             window.open(`https://wa.me/2348128663733?text=${msg}`);
             cart = [];
             document.getElementById('cartBar').style.visibility = 'hidden';
